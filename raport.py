@@ -1,21 +1,13 @@
 import unittest
 import HtmlTestRunner
-
 from Suite_teste import Teste_Proiect_Final
 
-
 class TestSuites(unittest.TestCase):
-
     def test_suite(self):
-
         test_to_run = unittest.TestSuite()
-
         test_to_run.addTests([
             unittest.defaultTestLoader.loadTestsFromTestCase(Teste_Proiect_Final),
-            # unittest.defaultTestLoader.loadTestsFromTestCase(Authentication),
-
         ])
-
         runner = HtmlTestRunner.HTMLTestRunner(
             combine_reports=True,
             report_name='Raport proiect final',

@@ -9,10 +9,13 @@ git clone https://github.com/Diana-Daniela/Proiect_final_v1.git
 Libraries to install:\
 pip install -U selenium\
 pip install webdriver-manager
+pip install html-testRunner
 
 Run tests:\
 click dreapta in zona de editare -> Run "nume fisier.py"
 sau click pe sageata verde din dreptul Clasei/metodei
+
+Inainte de fiecare test am descris scenariul testului implementat
 
 Troubleshoot:\
 a.\
