@@ -4,7 +4,7 @@ Site tested: https://the-internet.herokuapp.com/
 Design pattern used: Unit Testing
 Methodology: framework
 To import project\
-git clone https://github.com/Diana-Daniela/Proiect_final_TA.git
+git clone https://github.com/Diana-Daniela/Proiect_final_v1.git
 
 Libraries to install:\
 pip install -U selenium\

@@ -131,4 +131,3 @@ class Teste_Proiect_Final(unittest.TestCase):
         assert actual_text == expected_text, "Textul nu este cel asteptat"
         print("Textul este corect")
 
-
