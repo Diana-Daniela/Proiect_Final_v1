@@ -1,8 +1,9 @@
 import unittest
 from time import sleep
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-
+import pytest
 from webdriver_manager import chrome
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
@@ -17,9 +18,11 @@ class Teste_Proiect_Final(unittest.TestCase):
     AUTH_CONFIRM_MESSAGE = (By.TAG_NAME, 'p')
     RESULT_MESSAGE = (By.ID, "result")
     FORM_AUTHENTICATION = (By.LINK_TEXT, "Form Authentication")
+    JAVA_SCRIPT_ALERTS = (By.LINK_TEXT, "JavaScript Alerts")
     ALERT_BUTTON = (By.XPATH, '//button[text()="Click for JS Alert"]')
     CONFIRM_BUTTON = (By.XPATH, '//button[text()="Click for JS Confirm"]')
     PROMPT_BUTTON = (By.XPATH, '//button[text()="Click for JS Prompt"]')
+    CONTEXT_MENU = (By.LINK_TEXT, "Context Menu")
     CONTEXT_BOX = (By.ID, "hot-spot")
     LOGIN_BUTTON = (By.XPATH, "//i[@class='fa fa-2x fa-sign-in']")
 
@@ -34,6 +37,7 @@ class Teste_Proiect_Final(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
+    # se verifica daca titlul paginii este corect
     def test_1_page_title_corect(self):
         expected_title = "The Internet"
         actual_title = self.driver.title
@@ -54,6 +58,7 @@ class Teste_Proiect_Final(unittest.TestCase):
         print('Link-ul verificat este corect')
 
     def test_4_alert(self):
+        self.driver.find_element(*self.JAVA_SCRIPT_ALERTS).click()
         self.driver.find_element(*self.ALERT_BUTTON).click()
         obj = self.driver.switch_to.alert # Ne-am mutat de pe pagina noastra pe fereastra de alerta si am salvat fereastra intro variabila obj
         print(f"Mesajul de pe fereastra de alerta este: {obj.text}") # metoda text extrage textul din alerta din cazul nostru (din elementul obj)
@@ -64,6 +69,7 @@ class Teste_Proiect_Final(unittest.TestCase):
         self.assertEqual(message, "You successfully clicked an alert", "Mesajul nu este cel asteptat")
 
     def test_5_confirm_ok(self):
+        self.driver.find_element(*self.JAVA_SCRIPT_ALERTS).click()
         self.driver.find_element(*self.CONFIRM_BUTTON).click()
         obj = self.driver.switch_to.alert
         print(f"Mesajul de pe fereastra este: {obj.text}")
@@ -73,6 +79,7 @@ class Teste_Proiect_Final(unittest.TestCase):
         self.assertEqual(message,"You clicked: Ok","Mesajul nu este cel asteptat")
 
     def test_6_confirm_cancel(self):
+        self.driver.find_element(*self.JAVA_SCRIPT_ALERTS).click()
         self.driver.find_element(*self.CONFIRM_BUTTON).click()
         obj = self.driver.switch_to.alert
         obj.dismiss()  ## cu dismiss dam cancel la pop-up de confirm alert
@@ -80,10 +87,12 @@ class Teste_Proiect_Final(unittest.TestCase):
         sleep(2)
         self.assertEqual(message, "You clicked: Cancel", "Mesajul nu este cel asteptat")
 
-    def test_7_prompt(self):
+    def test_7_prompt_mesaj_ok(self):
+        self.driver.find_element(*self.JAVA_SCRIPT_ALERTS).click()
         self.driver.find_element(*self.PROMPT_BUTTON).click()
         obj = self.driver.switch_to.alert
         input_text = "Diana"
+        sleep(2)
         obj.send_keys(input_text) #### Trimitem textul Diana in text-field-ul promptului
         sleep(4)
         obj.accept()
@@ -92,9 +101,8 @@ class Teste_Proiect_Final(unittest.TestCase):
         sleep(2)
         self.assertEqual(message, f"You entered: {input_text}", "Mesajul nu este cel asteptat")
 
-    def test_8_promt_cancel(self):
-        self.driver.get("https://the-internet.herokuapp.com/javascript_alerts")
-        self.driver.maximize_window()
+    def test_8_prompt_cancel(self):
+        self.driver.find_element(*self.JAVA_SCRIPT_ALERTS).click()
         self.driver.find_element(*self.PROMPT_BUTTON).click()
         obj = self.driver.switch_to.alert
         obj.dismiss()  # cu dismiss dam cancel la pop-up de confirm alert
@@ -103,6 +111,7 @@ class Teste_Proiect_Final(unittest.TestCase):
         self.assertEqual(message, "You entered: null", "Mesajul nu este cel asteptat")
 
     def test_9_context_menu(self):
+        self.driver.find_element(*self.CONTEXT_MENU).click()
         context_box = self.driver.find_element(*self.CONTEXT_BOX) # alerta apare doar in dreptunghiul respectiv
         context_box.click() # folosind click() facem click stanga, click-ul normal
         sleep(2)
@@ -121,11 +130,14 @@ class Teste_Proiect_Final(unittest.TestCase):
         print("Noul URL este corect")
 
     def test_11_buton_login_displayed(self):
+        self.driver.find_element(*self.FORM_AUTHENTICATION).click()
         buton_login = self.driver.find_element(*self.LOGIN_BUTTON)
+        sleep(2)
         self.assertTrue(buton_login.is_displayed(), "Butonul de Login nu este afisat")
         print("Butonul este afisat")
 
     def test_12_element_xpath(self):
+        self.driver.find_element(*self.FORM_AUTHENTICATION).click()
         expected_text = "Login Page"
         actual_text = self.driver.find_element(By.XPATH, "//h2").text
         assert actual_text == expected_text, "Textul nu este cel asteptat"
