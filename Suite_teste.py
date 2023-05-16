@@ -41,7 +41,6 @@ class Teste_Proiect_Final(unittest.TestCase):
         expected_title = "The Internet"
         actual_title = self.driver.title
         assert actual_title == expected_title, f"Titlu incorect: {actual_title}"
-        print("Titlul este corect")
 
     # se valideaza mesajul de confirmare dupa introducerea corecta a userului si a parolei in meniul digest_auth
     def test_2_mesaj_corect_user_pass_corecte(self):
@@ -55,7 +54,6 @@ class Teste_Proiect_Final(unittest.TestCase):
     def test_3_atribut_href_corect(self):
         actual_link = self.driver.find_element(By.XPATH, '//a[@href="http://elementalselenium.com/"]').get_attribute('href')
         assert actual_link == 'http://elementalselenium.com/', 'Link-ul este gresit'
-        print('Link-ul verificat este corect')
 
     # Se verifica mesajul de confirmare la apasarea butonului "OK" din pop-up-ul generat din butonul "Click for JS Alert"
     def test_4_alert(self):
@@ -98,10 +96,8 @@ class Teste_Proiect_Final(unittest.TestCase):
         obj = self.driver.switch_to.alert
         input_text = "Diana"
         sleep(2)
-        obj.send_keys(input_text) #### Trimitem textul Diana in text-field-ul promptului
-        sleep(4)
+        obj.send_keys(input_text) # Trimitem textul Diana in text-field-ul promptului
         obj.accept()
-        sleep(3)
         message = self.driver.find_element(*self.RESULT_MESSAGE).text
         sleep(2)
         self.assertEqual(message, f"You entered: {input_text}", "Mesajul nu este cel asteptat")
@@ -135,7 +131,6 @@ class Teste_Proiect_Final(unittest.TestCase):
         expected_url = "https://the-internet.herokuapp.com/login"
         actual_url = self.driver.current_url
         assert actual_url == expected_url, f"URL incorect:{actual_url}"
-        print("Noul URL este corect")
 
     # dupa accesarea linkului "Form Authentication" se verifica daca butonul de Login este afisat
     def test_11_buton_login_displayed(self):
@@ -143,7 +138,6 @@ class Teste_Proiect_Final(unittest.TestCase):
         buton_login = self.driver.find_element(*self.LOGIN_BUTTON)
         sleep(2)
         self.assertTrue(buton_login.is_displayed(), "Butonul de Login nu este afisat")
-        print("Butonul este afisat")
 
     # se verifica ca la accesarea cu user si parola corecte in meniul "Form Authentication"
     # mesajul sa contina textul "secure"
