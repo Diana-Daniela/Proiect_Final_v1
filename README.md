@@ -24,5 +24,9 @@ Daca nu merge cu pip incercati comanda: py -m pip install selenium\
 b.\
 Daca nici asa nu merge:\
 File -> Settings -> Click pe Project: [nume_proiect] -> Python Interpreter -> +\
-Cautati 'selenium' -> Install Package\
+Cautati 'selenium' -> Install Package\ 
 La fel si pentru restul librariilor 
+
+c.\
+Python Packages -> in bara de Search scriu html-testRunner -> Enter
+

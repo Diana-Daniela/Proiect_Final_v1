@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 import pytest
 from webdriver_manager import chrome
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.keys import Keys
 
 class Teste_Proiect_Final(unittest.TestCase):
     DIGEST_AUTHENTICATION = (By.LINK_TEXT, "Digest Authentication")
@@ -44,7 +43,6 @@ class Teste_Proiect_Final(unittest.TestCase):
 
     # se valideaza mesajul de confirmare dupa introducerea corecta a userului si a parolei in meniul digest_auth
     def test_2_mesaj_corect_user_pass_corecte(self):
-        self.driver.get("https://the-internet.herokuapp.com/")
         self.driver.get(f'https://{self.USERNAME}:{self.PASSWORD}@the-internet.herokuapp.com/digest_auth')
         sleep(3)
         confirm_message = self.driver.find_element(*self.AUTH_CONFIRM_MESSAGE).text
@@ -119,7 +117,7 @@ class Teste_Proiect_Final(unittest.TestCase):
         context_box = self.driver.find_element(*self.CONTEXT_BOX) # alerta apare doar in dreptunghiul respectiv
         context_box.click() # folosind click() facem click stanga, click-ul normal
         sleep(2)
-        action = ActionChains(self.driver)  # action chains ne ajutam sa facem click dreapta
+        action = ActionChains(self.driver)  # action chains ne ajuta sa facem click dreapta
         action.context_click(context_box).perform() # cu metoda context_click accesam metoda perform() care e adevaratul click dreapta
         sleep(3)
         self.driver.switch_to.alert.accept() # ne-am mutat pe alerta care a aparut si am dat click pe OK
